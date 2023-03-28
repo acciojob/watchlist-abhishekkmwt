@@ -1,4 +1,4 @@
-package com.driver.repository;
+package com.driver;
 
 import com.driver.Director;
 import com.driver.Movie;
@@ -59,11 +59,12 @@ public class MovieRepository {
 
     public String deleteDirectorByName(String directorName){
 
-        for(String s : pairDirMovie.keySet()){
-            if(pairDirMovie.get(s).equals(directorName)){
-                movieHashMap.remove(s);
-                directorHashMap.remove(directorName);
-                pairDirMovie.remove(s);
+        directorHashMap.remove(directorName);
+        for(Map.Entry<String,String> entry : pairDirMovie.entrySet()){
+            if(entry.getValue().equals(directorName)){
+                String movieName =entry.getKey();
+                movieHashMap.remove(movieName);
+                pairDirMovie.remove(movieName);
             }
         }
         return "Director and its Related Movies Deleted Successfully ";
@@ -71,11 +72,12 @@ public class MovieRepository {
 
     public String deleteAllDirectors(){
            for(String dir : directorHashMap.keySet()){
-               for(String s : pairDirMovie.keySet()){
-                   if(pairDirMovie.get(s).equals(dir)){
-                       movieHashMap.remove(s);
-                       directorHashMap.remove(dir);
-                       pairDirMovie.remove(s);
+               directorHashMap.remove(dir);
+               for(Map.Entry<String,String> entry : pairDirMovie.entrySet()){
+                   if(entry.getValue().equals(dir)){
+                       String movieName =entry.getKey();
+                       movieHashMap.remove(movieName);
+                       pairDirMovie.remove(movieName);
                    }
                }
            }

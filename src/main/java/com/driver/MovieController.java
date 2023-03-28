@@ -1,20 +1,16 @@
-package com.driver.controller;
+package com.driver;
 
 import com.driver.Director;
 import com.driver.Movie;
-import com.driver.service.MovieService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.driver.MovieService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
 @RequestMapping("/movies")
 public class MovieController {
-
 
     MovieService movieService=new MovieService();
 
@@ -31,7 +27,7 @@ public class MovieController {
     }
 
     @PutMapping("/add-movie-director-pair")
-    public ResponseEntity<String> addMovieDirectorPair(@RequestParam("movieName") String movieName, @RequestParam("directorName")String directorName){
+    public ResponseEntity<String> addMovieDirectorPair(@RequestParam("name") String movieName, @RequestParam("name")String directorName){
         String ans=movieService.addMovieDirectorPair(movieName,directorName);
         return new ResponseEntity<>(ans, HttpStatus.CREATED);
     }
@@ -61,7 +57,7 @@ public class MovieController {
     }
 
     @DeleteMapping("/delete-director-by-name")
-    public ResponseEntity<String> deleteDirectorByName(@RequestParam("directorName")String directorName){
+    public ResponseEntity<String> deleteDirectorByName(@RequestParam("name")String directorName){
         String ans=movieService.deleteDirectorByName(directorName);
         return new ResponseEntity<>(ans, HttpStatus.CREATED);
     }
