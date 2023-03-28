@@ -42,7 +42,7 @@ public class MovieRepository {
     public List<String> getMoviesByDirectorName(String directorName){
         List<String> moviesList = new ArrayList<>();
         for(String s : pairDirMovie.keySet()){
-            if(pairDirMovie.get(s) == directorName){
+            if(pairDirMovie.get(s).equals(directorName)){
                 moviesList.add(s);
             }
         }
@@ -50,11 +50,11 @@ public class MovieRepository {
     }
 
     public List<Movie> findAllMovies(){
-        List<Movie> moviesList = new ArrayList<>();
+        List<Movie> moviesList1 = new ArrayList<>();
         for(Movie movie : movieHashMap.values()){
-            moviesList.add(movie);
+            moviesList1.add(movie);
         }
-        return moviesList;
+        return moviesList1;
     }
 
     public String deleteDirectorByName(String directorName){
