@@ -36,14 +36,14 @@ public class MovieController {
         return new ResponseEntity<>(ans, HttpStatus.CREATED);
     }
 
-    @GetMapping("/get-movie-by-name/{movieName}")
-    public ResponseEntity<Movie> getMovieByName(@PathVariable("movieName") String movieName){
+    @GetMapping("/get-movie-by-name/{name}")
+    public ResponseEntity<Movie> getMovieByName(@PathVariable("name") String movieName){
             Movie movie=movieService.getMovieByName(movieName);
             return new ResponseEntity<>(movie,HttpStatus.OK);
     }
 
-    @GetMapping("/get-director-by-name/{directorName}")
-    public ResponseEntity<Director> getDirectorByName(@PathVariable("directorName") String directorName){
+    @GetMapping("/get-director-by-name/{name}")
+    public ResponseEntity<Director> getDirectorByName(@PathVariable("name") String directorName){
         Director director=movieService.getDirectorByName(directorName);
         return new ResponseEntity<>(director,HttpStatus.OK);
     }
