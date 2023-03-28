@@ -12,7 +12,7 @@ public class MovieRepository {
 
     HashMap<String, Movie> movieHashMap = new HashMap<>();
     HashMap<String, Director> directorHashMap = new HashMap<>();
-    HashMap<String, String> pairDirMovie = new HashMap<>();
+    HashMap<String, List<String>> pairDb=new HashMap<>();
 
     public String addMovie(Movie movie){
         movieHashMap.put(movie.getName(), movie);
@@ -25,7 +25,12 @@ public class MovieRepository {
     }
 
     public String addMovieDirectorPair(String movieName, String directorName){
-        pairDirMovie.put(movieName,directorName);
+        List<String> movies= pairDb.get(directorName);
+        if(movies == null){
+            movies = new ArrayList<>();
+        }
+        movies.add(movieName);
+        pairDb.put(directorName,movies);
         return "Movie Director Pair Added Successfully";
     }
 
@@ -38,13 +43,7 @@ public class MovieRepository {
     }
 
     public List<String> getMoviesByDirectorName(String directorName){
-        List<String> moviesList = new ArrayList<>();
-        for(String s : pairDirMovie.keySet()){
-            if(pairDirMovie.get(s).equals(directorName)){
-                moviesList.add(s);
-            }
-        }
-        return moviesList;
+        return pairDb.get(directorName);
     }
 
     public List<String> findAllMovies(){
@@ -55,31 +54,23 @@ public class MovieRepository {
         return moviesList1;
     }
 
-    public String deleteDirectorByName(String directorName){
-
-        directorHashMap.remove(directorName);
-        for(Map.Entry<String,String> entry : pairDirMovie.entrySet()){
-            if(entry.getValue().equals(directorName)){
-                String movieName =entry.getKey();
-                movieHashMap.remove(movieName);
-                pairDirMovie.remove(movieName);
-            }
+    public String deleteDirectorByName(String director){
+        for(String movie : pairDb.get(director)){
+            movieHashMap.remove(movie);
         }
+        directorHashMap.remove(director);
+        pairDb.remove(director);
         return "Director and its Related Movies Deleted Successfully ";
     }
 
     public String deleteAllDirectors(){
-           for(String dir : directorHashMap.keySet()){
-               directorHashMap.remove(dir);
-               for(Map.Entry<String,String> entry : pairDirMovie.entrySet()){
-                   if(entry.getValue().equals(dir)){
-                       String movieName =entry.getKey();
-                       movieHashMap.remove(movieName);
-                       pairDirMovie.remove(movieName);
-                   }
-               }
-
-           }
+        for(String director : directorHashMap.keySet()){
+            for(String movie : pairDb.get(director)){
+                movieHashMap.remove(movie);
+            }
+            directorHashMap.remove(director);
+            pairDb.remove(director);
+        }
         return "Director and its Related Movies Deleted Successfully ";
     }
 
