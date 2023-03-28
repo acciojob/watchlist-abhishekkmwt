@@ -1,7 +1,5 @@
 package com.driver;
 
-import com.driver.Director;
-import com.driver.Movie;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -49,10 +47,10 @@ public class MovieRepository {
         return moviesList;
     }
 
-    public List<Movie> findAllMovies(){
-        List<Movie> moviesList1 = new ArrayList<>();
-        for(Movie movie : movieHashMap.values()){
-            moviesList1.add(movie);
+    public List<String> findAllMovies(){
+        List<String> moviesList1 = new ArrayList<>();
+        for(String name: movieHashMap.keySet()){
+            moviesList1.add(name);
         }
         return moviesList1;
     }
