@@ -12,8 +12,7 @@ import java.util.List;
 @Service
 public class MovieService {
 
-    @Autowired
-    MovieRepository movieRepository;
+    MovieRepository movieRepository=new MovieRepository();
 
     public String addMovie(Movie movie){
        String ans =movieRepository.addMovie(movie);
